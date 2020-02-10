@@ -1,7 +1,11 @@
 package com.api.project.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -9,16 +13,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="item_state")
-public class ItemState {
+public class ItemState implements Serializable {
 
 	@Id
-	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, nullable = false)
 	private int id;
-	@Column(name = "is_active")
+	@Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT true")
 	private boolean isActive;
 	//@Column(name = "change_by")
 	@ManyToOne
-	@JoinColumn(name = "change_by", nullable = true)
+	@JoinColumn(name = "changed_by", nullable = true)
 	private User changedBy;
 	@Column
 	private String reason;
@@ -35,11 +40,11 @@ public class ItemState {
 		this.id = id;
 	}
 
-	public boolean isActive() {
+	public boolean getIsActive() {
 		return isActive;
 	}
 
-	public void setActive(boolean isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 
