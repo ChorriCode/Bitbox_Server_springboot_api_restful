@@ -3,8 +3,10 @@ package com.api.project.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,13 +26,9 @@ public class Supplier implements Serializable {
 	private String name;
 	@Column(length = 75)
 	private String country;
-	@Column
-	@ManyToMany
-	@JoinTable(name = "item_supplier"
-	, joinColumns=@JoinColumn(name = "id_item")
-	, inverseJoinColumns=@JoinColumn(name = "id_supplier"))
-	@JoinColumn(name = "id", nullable = true)
+	@ManyToMany(mappedBy = "suppliers", fetch = FetchType.EAGER)
 	private List<Item> items;
+
 	
 	public Supplier() {
 	}

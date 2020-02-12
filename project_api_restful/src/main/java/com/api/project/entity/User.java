@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,10 +22,12 @@ public class User implements Serializable {
 	private String name;
 	@Column(length = 50)
 	private String password;
+
 	
 	public User() {
 	}
 
+	
 	public int getId() {
 		return id;
 	}

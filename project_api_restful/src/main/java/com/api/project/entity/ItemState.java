@@ -2,8 +2,10 @@ package com.api.project.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,14 +17,14 @@ import javax.persistence.Table;
 @Table(name="item_state")
 public class ItemState implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
+    @Column
 	private int id;
 	@Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT true")
-	private boolean isActive;
-	//@Column(name = "change_by")
-	@ManyToOne
+	private boolean isActive;	
+	@ManyToOne(cascade=CascadeType.REMOVE, fetch = FetchType.LAZY)
 	@JoinColumn(name = "changed_by", nullable = true)
 	private User changedBy;
 	@Column
