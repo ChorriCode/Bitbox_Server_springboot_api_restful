@@ -23,30 +23,43 @@ import javax.persistence.Table;
 @Table(name="item")
 public class Item implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
 	private int id;
+	
 	@Column(name = "item_code")
 	private int itemCode;
+	
 	@Column
 	private String description;
+	
 	@Column
 	private float price;
+	
 	@OneToOne(cascade=CascadeType.REMOVE, fetch = FetchType.LAZY)
 	@JoinColumn(name = "state", nullable = false)
 	private ItemState state;
-	@ManyToMany( fetch = FetchType.EAGER)
+	
+	@ManyToMany( fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
 	@JoinTable(name = "item_supplier", joinColumns = @JoinColumn(name = "id_item"),	inverseJoinColumns = @JoinColumn(name = "id_supplier"))
 	private List<Supplier> suppliers;
-	@Column(name="price_reduction")
-	@OneToMany
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "itemPriceReduction")
 	private List<PriceReduction> pricesReduction;
+	
+	
 	@Column(name = "creation_at")
 	private Date creationDate;
+	
 	@ManyToOne
 	@JoinColumn(name = "creator_user")
 	private User creatorUser;
+	
 	
 	public Item() {
 	}
@@ -126,6 +139,12 @@ public class Item implements Serializable{
 
 	public void setCreatorUser(User creatorUser) {
 		this.creatorUser = creatorUser;
+	}
+
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", itemCode=" + itemCode + ", description=" + description + ", price=" + price
+				+ ", suppliers=" + suppliers + ", creationDate=" + creationDate + "]";
 	}
 	
 	

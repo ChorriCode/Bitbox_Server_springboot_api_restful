@@ -4,7 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,6 +17,7 @@ import javax.persistence.Table;
 public class PriceReduction {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private int id;
 	
@@ -23,6 +29,10 @@ public class PriceReduction {
 	
 	@Column(name="end_date")
 	private Date endDate;
+	
+	 @ManyToOne(fetch = FetchType.LAZY)
+	 @JoinColumn(name = "item_id")
+	 private Item itemPriceReduction;
 	
 	public PriceReduction() {
 		
@@ -53,7 +63,19 @@ public class PriceReduction {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	
+
+
+	public Item getItemPriceReduction() {
+		return itemPriceReduction;
+	}
+
+
+	public void setItemPriceReduction(Item itemPriceReduction) {
+		this.itemPriceReduction = itemPriceReduction;
+	}
+
+
+
 	
 
 }

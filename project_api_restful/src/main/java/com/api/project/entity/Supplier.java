@@ -18,6 +18,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="supplier")
 public class Supplier implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
@@ -26,7 +30,7 @@ public class Supplier implements Serializable {
 	private String name;
 	@Column(length = 75)
 	private String country;
-	@ManyToMany(mappedBy = "suppliers", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "suppliers", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Item> items;
 
 	
@@ -56,5 +60,14 @@ public class Supplier implements Serializable {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+	
 	
 }
