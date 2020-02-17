@@ -6,4 +6,6 @@ import com.api.project.entity.PriceReduction;
 
 public interface PriceReductionRepository  extends JpaRepository<PriceReduction, Integer>{
 
+	
+
 }

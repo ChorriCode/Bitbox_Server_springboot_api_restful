@@ -19,13 +19,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="item")
 public class Item implements Serializable{
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +42,7 @@ public class Item implements Serializable{
 	@Column
 	private float price;
 	
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToOne(cascade=CascadeType.REMOVE, fetch = FetchType.LAZY)
 	@JoinColumn(name = "state", nullable = false)
 	private ItemState state;
@@ -49,6 +51,8 @@ public class Item implements Serializable{
 	@JoinTable(name = "item_supplier", joinColumns = @JoinColumn(name = "id_item"),	inverseJoinColumns = @JoinColumn(name = "id_supplier"))
 	private List<Supplier> suppliers;
 	
+	@JsonManagedReference
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "itemPriceReduction")
 	private List<PriceReduction> pricesReduction;
 	

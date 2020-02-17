@@ -30,7 +30,7 @@ public class Supplier implements Serializable {
 	private String name;
 	@Column(length = 75)
 	private String country;
-	@ManyToMany(mappedBy = "suppliers", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Item> items;
 
 	
@@ -68,6 +68,8 @@ public class Supplier implements Serializable {
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
+
+
 	
 	
 }

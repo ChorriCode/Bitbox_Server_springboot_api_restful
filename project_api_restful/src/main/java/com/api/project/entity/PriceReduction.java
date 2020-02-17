@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="price_reduction")
 public class PriceReduction {
@@ -32,6 +34,7 @@ public class PriceReduction {
 	
 	 @ManyToOne(fetch = FetchType.LAZY)
 	 @JoinColumn(name = "item_id")
+	 @JsonBackReference
 	 private Item itemPriceReduction;
 	
 	public PriceReduction() {
