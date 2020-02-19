@@ -15,25 +15,32 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="supplier")
 public class Supplier implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
 	private int id;
+	
 	@Column(length = 100)
 	private String name;
+	
 	@Column(length = 75)
 	private String country;
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	
+	@JsonBackReference
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "item_supplier", 
+	joinColumns = @JoinColumn(name = "id_supplier"),
+	inverseJoinColumns = @JoinColumn(name = "id_item"))
 	private List<Item> items;
 
-	
+	  
 	public Supplier() {
 	}
 

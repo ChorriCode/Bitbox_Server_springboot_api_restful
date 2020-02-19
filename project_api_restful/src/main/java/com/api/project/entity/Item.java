@@ -47,13 +47,15 @@ public class Item implements Serializable{
 	@JoinColumn(name = "state", nullable = false)
 	private ItemState state;
 	
-	@ManyToMany( fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
-	@JoinTable(name = "item_supplier", joinColumns = @JoinColumn(name = "id_item"),	inverseJoinColumns = @JoinColumn(name = "id_supplier"))
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@ManyToMany( fetch = FetchType.LAZY)
+	@JoinTable(name = "item_supplier", 
+	joinColumns = @JoinColumn(name = "id_item"),
+	inverseJoinColumns = @JoinColumn(name = "id_supplier"))
 	private List<Supplier> suppliers;
 	
 	@JsonManagedReference
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "itemPriceReduction")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "itemPriceReduction", cascade = CascadeType.REMOVE)
 	private List<PriceReduction> pricesReduction;
 	
 	

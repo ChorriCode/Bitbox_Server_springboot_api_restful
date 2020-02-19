@@ -2,6 +2,7 @@ package com.api.project.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +33,7 @@ public class PriceReduction {
 	@Column(name="end_date")
 	private Date endDate;
 	
-	 @ManyToOne(fetch = FetchType.LAZY)
+	 @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	 @JoinColumn(name = "item_id")
 	 @JsonBackReference
 	 private Item itemPriceReduction;
