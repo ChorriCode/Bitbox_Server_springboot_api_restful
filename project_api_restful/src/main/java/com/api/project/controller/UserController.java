@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,6 +35,7 @@ public class UserController {
 	
 	@PostMapping("login")
 	public User login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+		
 		
 		String token = getJWTToken(username);
 		User user = new User();
