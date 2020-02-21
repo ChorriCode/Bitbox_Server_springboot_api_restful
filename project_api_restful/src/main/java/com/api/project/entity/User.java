@@ -11,22 +11,24 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-@Entity
+@Entity(name="user")
 @Table(name="user")
 public class User implements Serializable {
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
 	private int id;
+	
 	@Column(length = 100)
 	private String name;
+	
 	@Column(length = 50)
 	private String password;
+	
 	@Transient
 	private String token;
 	

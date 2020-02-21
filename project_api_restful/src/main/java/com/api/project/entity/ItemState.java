@@ -18,15 +18,19 @@ import javax.persistence.Table;
 public class ItemState implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
 	private int id;
+	
 	@Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT true")
 	private boolean isActive;	
+	
 	@ManyToOne(cascade=CascadeType.REMOVE, fetch = FetchType.LAZY)
 	@JoinColumn(name = "changed_by", nullable = true)
 	private User changedBy;
+	
 	@Column
 	private String reason;
 	

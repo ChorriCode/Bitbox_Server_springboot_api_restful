@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.project.entity.User;
 import com.api.project.repository.UserRepository;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy.PascalCaseStrategy;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -36,15 +37,22 @@ public class UserController {
 	@PostMapping("login")
 	public User login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
 		
-		
-		String token = getJWTToken(username);
+		User userDB = userCredentials(username,pwd);
+		System.out.println("username: " + username + " - password: " + pwd );
 		User user = new User();
-		user.setName(username);
-		user.setToken(token);		
+		if (userDB != null) {
+			String token = getJWTToken(username);
+			user.setName(username);
+			user.setToken(token);
+		}
+				
 		return user;
 		
 	}
 	
+	public User userCredentials (String name, String password) {
+		return userRepository.findUser(name, password);
+	}
 	private String getJWTToken(String username) {
 		String secretKey = "mySecretKey";
 		List<GrantedAuthority>  grantedAuthorities = AuthorityUtils

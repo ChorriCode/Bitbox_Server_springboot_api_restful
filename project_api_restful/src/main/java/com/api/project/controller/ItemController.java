@@ -2,6 +2,7 @@ package com.api.project.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import com.api.project.repository.ItemRepository;
 import com.api.project.repository.ItemStateRepository;
 import com.api.project.repository.PriceReductionRepository;
 import com.api.project.repository.SupplierRepository;
+
 
 @RestController
 public class ItemController {
@@ -70,11 +72,23 @@ public class ItemController {
      @GetMapping("/item/{id}")
      Item getItem(@PathVariable int id) {
        Item item = itemRepository.findById(id).get();
+       try {
+		item.getState().getChangedBy().setPassword("");
+		   item.getCreatorUser().setPassword("");
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		
+	}
        return item;
      }
      
      @GetMapping("/items")
      List <Item> getAllItem() {
-       return itemRepository.findAll();
+    	 List<Item> items = itemRepository.findAll();
+    	 for (Item item : items) {
+    		 item.getState().getChangedBy().setPassword("");
+    	     item.getCreatorUser().setPassword("");   		 
+    	 }
+       return items;
      }
 }

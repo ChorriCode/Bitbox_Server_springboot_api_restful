@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -18,6 +20,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -33,10 +37,10 @@ public class Item implements Serializable{
     @Column
 	private int id;
 	
-	@Column(name = "item_code")
+	@Column(name = "item_code", unique = true, nullable = false)
 	private int itemCode;
 	
-	@Column
+	@Column(nullable = false)
 	private String description;
 	
 	@Column
@@ -59,7 +63,7 @@ public class Item implements Serializable{
 	private List<PriceReduction> pricesReduction;
 	
 	
-	@Column(name = "creation_at")
+	@Column(name = "creation_at", insertable = false, updatable = false, columnDefinition="DATE DEFAULT CURRENT_TIMESTAMP")
 	private Date creationDate;
 	
 	@ManyToOne

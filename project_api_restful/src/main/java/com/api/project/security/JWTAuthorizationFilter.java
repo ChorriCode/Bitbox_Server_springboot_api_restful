@@ -30,6 +30,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+		
+		
 		try {
 			if (existeJWTToken(request, response)) {
 				Claims claims = validateToken(request);
