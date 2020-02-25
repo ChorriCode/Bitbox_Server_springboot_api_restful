@@ -44,7 +44,7 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void run(ApplicationArguments args) {
-    	/*
+    	
 		Supplier supp1 = new Supplier();
 		supp1.setName("Supp1");
 		supp1.setCountry("Spain");
@@ -73,6 +73,6 @@ public class DataLoader implements ApplicationRunner {
 		priceReduction1.setItemPriceReduction(itemSaved);
 		priceReduction1.setReducedPrice(6.0f);
 		priceReductionRepository.save(priceReduction1);
-		*/
+		
     }
 }
