@@ -24,7 +24,7 @@ public class PriceReduction {
 	@Column
 	private int id;
 	
-	@Column(name="reduce_price")
+	@Column(name="reduced_price")
 	private float reducedPrice;
 	
 	@Column(name="start_Date")

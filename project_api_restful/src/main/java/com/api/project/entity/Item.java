@@ -67,8 +67,8 @@ public class Item implements Serializable{
 	private Date creationDate;
 	
 	@ManyToOne
-	@JoinColumn(name = "creator_user")
-	private User creatorUser;
+	@JoinColumn(name = "register_byr")
+	private User resgisterBy;
 	
 	
 	public Item() {
@@ -143,12 +143,14 @@ public class Item implements Serializable{
 		this.pricesReduction = pricesReduction;
 	}
 
-	public User getCreatorUser() {
-		return creatorUser;
+
+
+	public User getResgisterBy() {
+		return resgisterBy;
 	}
 
-	public void setCreatorUser(User creatorUser) {
-		this.creatorUser = creatorUser;
+	public void setResgisterBy(User resgisterBy) {
+		this.resgisterBy = resgisterBy;
 	}
 
 	@Override

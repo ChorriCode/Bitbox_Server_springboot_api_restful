@@ -1,5 +1,7 @@
 package com.api.project;
 
+import java.util.Arrays;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +15,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.api.project.controller.ItemController;
 import com.api.project.security.JWTAuthorizationFilter;
 
 
@@ -21,6 +24,7 @@ public class ProjectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectApplication.class, args);
+		
 	}
 	
 	
@@ -35,15 +39,23 @@ public class ProjectApplication {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 //.antMatchers(HttpMethod.GET, "/").permitAll()
-                .anyRequest().authenticated();
-                //.and().cors();
+                .anyRequest().authenticated()
+                .and().cors();
         }
 	}
+	
+
 	@Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
+	
+	
 }
